@@ -11,21 +11,27 @@ export type LastOperatorReturn<T extends Operator<unknown, unknown>[]> =
     : never;
 
 /**
- * Pipe a value through a series of operatorfunctions.
+ * Pipes a value through a series of operator functions.
+ * Supports type inference for both the operator functions and the return value of the final operator.
  *
- * @param value - The value to pipe through the operators.
- * @param operators - The operators to apply to the value.
- * @returns The value after it has been piped through all the operators.
+ * > [!NOTE]
+ * >
+ * > If the number of operators exceeds 20, the operator functions' types will default to
+ * > `Operator<unknown, unknown>`, requiring explicit type annotations.
+ *
+ * @param value - The initial value to be processed through the operators.
+ * @param operators - A sequence of functions to apply to the value.
+ * @returns The final value after being processed through all the operators.
  *
  * @example
  * ```ts
- * import { pipe } from "@core/pipeline";
+ * import { pipe } from "@core/pipe";
  *
  * const result = pipe(
  *   1,
- *   (v) => v + 1,
- *   (v) => v * 2,
- *   (v) => v.toString(),
+ *   (v) => v + 1,  // inferred as (v: number) => number
+ *   (v) => v * 2,  // inferred as (v: number) => number
+ *   (v) => v.toString(), // inferred as (v: number) => string
  * );
  * console.log(result); // "4"
  * ```
