@@ -1,8 +1,8 @@
-# pipeline
+# pipe
 
-[![jsr](https://jsr.io/badges/@core/pipeline)](https://jsr.io/@core/pipeline)
-[![test](https://github.com/jsr-core/pipeline/workflows/Test/badge.svg)](https://github.com/jsr-core/pipeline/actions?query=workflow%3ATest)
-[![codecov](https://codecov.io/github/jsr-core/pipeline/graph/badge.svg?token=pfbLRGU5AM)](https://codecov.io/github/jsr-core/pipeline)
+[![jsr](https://jsr.io/badges/@core/pipe)](https://jsr.io/@core/pipe)
+[![test](https://github.com/jsr-core/pipe/workflows/Test/badge.svg)](https://github.com/jsr-core/pipe/actions?query=workflow%3ATest)
+[![codecov](https://codecov.io/github/jsr-core/pipe/graph/badge.svg?token=pfbLRGU5AM)](https://codecov.io/github/jsr-core/pipe)
 
 ## Usage
 
@@ -11,7 +11,7 @@
 Pipe a value through a series of operatorfunctions.
 
 ```ts
-import { pipe } from "@core/pipeline";
+import { pipe } from "@core/pipe";
 
 const result = pipe(
   1,

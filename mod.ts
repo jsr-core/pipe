@@ -11,7 +11,7 @@ export type LastOperatorReturn<T extends Operator<unknown, unknown>[]> =
     : never;
 
 /**
- * Pipe a value through a series of operatorfunctions.
+ * Pipe a value through a series of operator functions.
  *
  * @param value - The value to pipe through the operators.
  * @param operators - The operators to apply to the value.
@@ -19,7 +19,7 @@ export type LastOperatorReturn<T extends Operator<unknown, unknown>[]> =
  *
  * @example
  * ```ts
- * import { pipe } from "@core/pipeline";
+ * import { pipe } from "@core/pipe";
  *
  * const result = pipe(
  *   1,
