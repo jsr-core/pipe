@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@cross/test": "npm:@jsr/cross__test@^0.0.9",
+    "@std/assert": "npm:@jsr/std__assert@^1.0.2",
+    "@std/testing": "npm:@jsr/std__testing@^1.0.0-rc.5"
+  }
+}
