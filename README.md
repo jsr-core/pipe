@@ -32,6 +32,21 @@ const result = pipe(
 console.log(result); // "4"
 ```
 
+Or use `async` module to pipe a value through a series of asynchronous operator
+functions.
+
+```ts
+import { pipe } from "@core/pipe/async";
+
+const result = pipe(
+  1,
+  (v) => Promise.resolve(v + 1), // inferred as (v: number) => number | Promise<number>
+  (v) => Promise.resolve(v * 2), // inferred as (v: number) => number | Promise<number>
+  (v) => Promise.resolve(v.toString()), // inferred as (v: number) => string | Promise<string>
+);
+console.log(result); // "4"
+```
+
 ## License
 
 The code follows MIT license written in [LICENSE](./LICENSE). Contributors need
