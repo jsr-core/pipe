@@ -4,7 +4,7 @@
 export type AsyncOperator<A, B> = (v: A) => B | Promise<B>;
 
 /**
- * Get the return type of the last operator in a list of operators.
+ * @internal
  */
 type LastAsyncOperatorReturn<
   T extends AsyncOperator<unknown, unknown>[],

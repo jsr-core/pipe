@@ -4,11 +4,11 @@
 export type Operator<A, B> = (v: A) => B;
 
 /**
- * Get the return type of the last operator in a list of operators.
+ * @internal
  */
-export type LastOperatorReturn<T extends Operator<unknown, unknown>[]> =
-  T extends [...Operator<unknown, unknown>[], Operator<unknown, infer R>] ? R
-    : never;
+type LastOperatorReturn<T extends Operator<unknown, unknown>[]> = T extends
+  [...Operator<unknown, unknown>[], Operator<unknown, infer R>] ? R
+  : never;
 
 /**
  * Pipes a value through a series of operator functions.
