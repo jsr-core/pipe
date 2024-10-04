@@ -38,7 +38,7 @@ functions.
 ```ts
 import { pipe } from "@core/pipe/async";
 
-const result = pipe(
+const result = await pipe(
   1,
   (v) => Promise.resolve(v + 1), // inferred as (v: number) => number | Promise<number>
   (v) => Promise.resolve(v * 2), // inferred as (v: number) => number | Promise<number>
