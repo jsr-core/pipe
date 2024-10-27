@@ -47,6 +47,33 @@ const result = pipe(
 console.log(result); // "4"
 ```
 
+If you want to create a new function that composes multiple operators, use
+`compose` like below.
+
+```ts
+import { compose } from "@core/pipe/compose";
+
+const operator = compose(
+  (v: number) => v + 1, // The first operator must be typed explicitly
+  (v) => v * 2, // inferred as (v: number) => number
+  (v) => v.toString(), // inferred as (v: number) => string
+);
+console.log(operator(1)); // "4"
+```
+
+Or use `async` module to compose multiple asynchronous operators.
+
+```ts
+import { compose } from "@core/pipe/async/compose";
+
+const operator = compose(
+  (v: number) => Promise.resolve(v + 1), // The first operator must be typed explicitly
+  (v) => Promise.resolve(v * 2), // inferred as (v: number) => number | Promise<number>
+  (v) => Promise.resolve(v.toString()), // inferred as (v: number) => string | Promise<string>
+);
+console.log(await operator(1)); // "4"
+```
+
 ## Difference
 
 The `pipe` function in the root module is equivalent to function calls without

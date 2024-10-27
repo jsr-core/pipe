@@ -4,8 +4,10 @@
   "exports": {
     ".": "./mod.ts",
     "./async": "./async/mod.ts",
+    "./async/compose": "./async/compose.ts",
     "./async/operator": "./async/operator.ts",
     "./async/pipe": "./async/pipe.ts",
+    "./compose": "./compose.ts",
     "./operator": "./operator.ts",
     "./pipe": "./pipe.ts"
   },
