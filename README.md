@@ -47,6 +47,38 @@ const result = pipe(
 console.log(result); // "4"
 ```
 
+## Difference
+
+The `pipe` function in the root module is equivalent to function calls without
+`await` like below.
+
+```ts
+import { pipe } from "@core/pipe/pipe";
+
+const a = (v: unknown) => v;
+const b = (v: unknown) => v;
+const c = (v: unknown) => v;
+
+// Equivalent
+console.log(pipe(1, a, b, c)); // 1
+console.log(c(b(a(1)))); // 1
+```
+
+The `pipe` function in the `async` module is equivalent to function calls with
+`await` like below.
+
+```ts
+import { pipe } from "@core/pipe/async/pipe";
+
+const a = (v: unknown) => Promise.resolve(v);
+const b = (v: unknown) => Promise.resolve(v);
+const c = (v: unknown) => Promise.resolve(v);
+
+// Equivalent
+console.log(await pipe(1, a, b, c)); // 1
+console.log(await c(await b(await a(1)))); // 1
+```
+
 ## License
 
 The code follows MIT license written in [LICENSE](./LICENSE). Contributors need
