@@ -21,7 +21,7 @@ inference and type checking of the operator functions.
 Pipe a value through a series of operator functions.
 
 ```ts
-import { pipe } from "@core/pipe";
+import { pipe } from "@core/pipe/pipe";
 
 const result = pipe(
   1,
@@ -36,7 +36,7 @@ Or use `async` module to pipe a value through a series of asynchronous operator
 functions.
 
 ```ts
-import { pipe } from "@core/pipe/async";
+import { pipe } from "@core/pipe/async/pipe";
 
 const result = await pipe(
   1,
@@ -45,6 +45,65 @@ const result = await pipe(
   (v) => Promise.resolve(v.toString()), // inferred as (v: number) => string | Promise<string>
 );
 console.log(result); // "4"
+```
+
+If you want to create a new function that composes multiple operators, use
+`compose` like below.
+
+```ts
+import { compose } from "@core/pipe/compose";
+
+const operator = compose(
+  (v: number) => v + 1, // The first operator must be typed explicitly
+  (v) => v * 2, // inferred as (v: number) => number
+  (v) => v.toString(), // inferred as (v: number) => string
+);
+console.log(operator(1)); // "4"
+```
+
+Or use `async` module to compose multiple asynchronous operators.
+
+```ts
+import { compose } from "@core/pipe/async/compose";
+
+const operator = compose(
+  (v: number) => Promise.resolve(v + 1), // The first operator must be typed explicitly
+  (v) => Promise.resolve(v * 2), // inferred as (v: number) => number | Promise<number>
+  (v) => Promise.resolve(v.toString()), // inferred as (v: number) => string | Promise<string>
+);
+console.log(await operator(1)); // "4"
+```
+
+## Difference
+
+The `pipe` function in the root module is equivalent to function calls without
+`await` like below.
+
+```ts
+import { pipe } from "@core/pipe/pipe";
+
+const a = (v: unknown) => v;
+const b = (v: unknown) => v;
+const c = (v: unknown) => v;
+
+// Equivalent
+console.log(pipe(1, a, b, c)); // 1
+console.log(c(b(a(1)))); // 1
+```
+
+The `pipe` function in the `async` module is equivalent to function calls with
+`await` like below.
+
+```ts
+import { pipe } from "@core/pipe/async/pipe";
+
+const a = (v: unknown) => Promise.resolve(v);
+const b = (v: unknown) => Promise.resolve(v);
+const c = (v: unknown) => Promise.resolve(v);
+
+// Equivalent
+console.log(await pipe(1, a, b, c)); // 1
+console.log(await c(await b(await a(1)))); // 1
 ```
 
 ## License

@@ -1,32 +1,38 @@
 import { test } from "@cross/test";
 import { assertEquals } from "@std/assert";
 import { assertType, type IsExact } from "@std/testing/types";
-import { pipe } from "./mod.ts";
+import { compose } from "./compose.ts";
 
-await test("pipe with no operators should return the input", async () => {
-  assertEquals(await pipe(1), 1);
+await test("compose with no operators should return an identity function", async () => {
+  assertEquals(await compose()(1), 1);
 });
 
-await test("pipe with one operator should return operator applied value", async () => {
-  assertEquals(await pipe(1, (v) => Promise.resolve(v * 2)), 2);
+await test("compose with one operator should return the operator", async () => {
+  assertEquals(await compose((v: number) => Promise.resolve(v * 2))(1), 2);
 });
 
-await test("pipe with one operator should resolve the type properly", () => {
-  pipe(1, (v) => {
+await test("compose with one operator requires explicity type annotation", () => {
+  compose((v) => {
+    assertType<IsExact<typeof v, unknown>>(true);
+  });
+  compose((v: number) => {
     assertType<IsExact<typeof v, number>>(true);
     return v.toString();
   });
 });
 
-await test("pipe with two operators should return operator applied value", async () => {
+await test("compose with two operators should return a composed operator", async () => {
   assertEquals(
-    await pipe(1, (v) => Promise.resolve(v * 2), (v) => Promise.resolve(v * 2)),
+    await compose(
+      (v: number) => Promise.resolve(v * 2),
+      (v) => Promise.resolve(v * 2),
+    )(1),
     4,
   );
 });
 
-await test("pipe with two operators should resolve the type properly", () => {
-  pipe(1, (v) => {
+await test("compose with two operators should resolve the type properly", () => {
+  compose((v: number) => {
     assertType<IsExact<typeof v, number>>(true);
     return v.toString();
   }, (v) => {
@@ -35,20 +41,19 @@ await test("pipe with two operators should resolve the type properly", () => {
   });
 });
 
-await test("pipe with three operators should return operator applied value", async () => {
+await test("compose with three operators should return a composed operator", async () => {
   assertEquals(
-    await pipe(
-      1,
+    await compose(
+      (v: number) => Promise.resolve(v * 2),
       (v) => Promise.resolve(v * 2),
       (v) => Promise.resolve(v * 2),
-      (v) => Promise.resolve(v * 2),
-    ),
+    )(1),
     8,
   );
 });
 
-await test("pipe with three operators should resolve the type properly", () => {
-  pipe(1, (v) => {
+await test("compose with three operators should resolve the type properly", () => {
+  compose((v: number) => {
     assertType<IsExact<typeof v, number>>(true);
     return v.toString();
   }, (v) => {
@@ -60,17 +65,16 @@ await test("pipe with three operators should resolve the type properly", () => {
   });
 });
 
-await test("pipe with twenty operators should return operator applied value", async () => {
+await test("compose with twenty operators should return a composed operator", async () => {
   assertEquals(
-    await pipe(1, ...Array(20).fill((v: number) => Promise.resolve(v * 2))),
+    await compose(...Array(20).fill((v: number) => Promise.resolve(v * 2)))(1),
     2 ** 20,
   );
 });
 
-await test("pipe with twenty operators should resolve the type properly", () => {
-  pipe(
-    1,
-    (v) => {
+await test("compose with twenty operators should resolve the type properly", () => {
+  compose(
+    (v: number) => {
       assertType<IsExact<typeof v, number>>(true);
       return v;
     },
