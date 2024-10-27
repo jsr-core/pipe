@@ -1,7 +1,7 @@
 import { test } from "@cross/test";
 import { assertEquals } from "@std/assert";
 import { assertType, type IsExact } from "@std/testing/types";
-import { pipe } from "./mod.ts";
+import { pipe } from "./pipe.ts";
 
 await test("pipe with no operators should return the input", async () => {
   assertEquals(await pipe(1), 1);

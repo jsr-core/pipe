@@ -21,7 +21,7 @@ inference and type checking of the operator functions.
 Pipe a value through a series of operator functions.
 
 ```ts
-import { pipe } from "@core/pipe";
+import { pipe } from "@core/pipe/pipe";
 
 const result = pipe(
   1,
@@ -36,7 +36,7 @@ Or use `async` module to pipe a value through a series of asynchronous operator
 functions.
 
 ```ts
-import { pipe } from "@core/pipe/async";
+import { pipe } from "@core/pipe/async/pipe";
 
 const result = pipe(
   1,

@@ -3,7 +3,11 @@
   "version": "0.0.0",
   "exports": {
     ".": "./mod.ts",
-    "./async": "./async/mod.ts"
+    "./async": "./async/mod.ts",
+    "./async/operator": "./async/operator.ts",
+    "./async/pipe": "./async/pipe.ts",
+    "./operator": "./operator.ts",
+    "./pipe": "./pipe.ts"
   },
   "exclude": [
     ".coverage/**"
